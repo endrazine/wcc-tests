@@ -3,3 +3,6 @@ all:
 
 	apt install debootstrap
 	debootstrap jammy ./chroot-test
+
+test:
+	./test_all
