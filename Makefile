@@ -4,6 +4,7 @@ all:
 
 test:
 	./test_all
+	grep Load ./exec.log |wc -l
 
 cves:
 	wsh ../openssl/build-3.0.8/libcrypto.a < ./scripts/CVE-2022-3786.wsh || echo ""
