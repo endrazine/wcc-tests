@@ -3,7 +3,7 @@
 find ./chroot-test/bin ./chroot-test/sbin ./chroot-test/usr/bin ./chroot-test/usr/sbin -type f -exec file '{}' \;|grep -w ELF |grep dynamically|grep executable|awk -F ":" '{print $1}'|while read testbin
 do
 	echo "-- ${testbin}"
-	cp "${testbin}" ./test
-	wld -libify -noinit ./test
-	./loader ./test 2>&1
+	cp "${testbin}" ./testbin
+	wld -libify -noinit ./testbin
+	./loader ./testbin 2>&1
 done |tee -a exec.log
