@@ -1,12 +1,12 @@
-# wcc-tests
+# Purpose
 
 This repository contains helper scripts to test the correctness of the Witchcraft Compiler Collection (WCC) software, hosted at: https://github.com/endrazine/wcc
 
-# testing
+# Testing WCC
 
-To build, copy the Dockerfile in this repository under /tmp/woot2/Dockerfile. Then type:
+To build, copy the Dockerfile in this repository under /tmp/woot24/Dockerfile. Then type:
 
-	jonathan@blackbox:/tmp/woot2$ docker build . -t witchcraft:latest
+	jonathan@blackbox:/tmp/woot24$ docker build . -t witchcraft:latest
 
 This should produce a new image named witchcraft:latest.
 
