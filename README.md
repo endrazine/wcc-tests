@@ -6,7 +6,7 @@ This repository contains helper scripts to test the correctness of the Witchcraf
 
 To build, copy the Dockerfile in this repository under /tmp/woot24/Dockerfile. Then type:
 
-	jonathan@blackbox:/tmp/woot24$ docker build . -t witchcraft:latest
+	docker build . -t witchcraft:latest
 
 This should produce a new image named witchcraft:latest.
 
