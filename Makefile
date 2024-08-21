@@ -3,6 +3,7 @@ all:
 	debootstrap jammy ./chroot-test
 
 test:
+	rm -f exec.log
 	./test_all
 	grep Load ./exec.log |wc -l
 

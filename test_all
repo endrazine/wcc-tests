@@ -4,6 +4,6 @@ find ./chroot-test/bin ./chroot-test/sbin ./chroot-test/usr/bin ./chroot-test/us
 do
 	echo "-- ${testbin}"
 	cp "${testbin}" ./testbin
-	wld -libify -noinit ./testbin
+	wld --libify --noinit ./testbin
 	./loader ./testbin 2>&1
 done |tee -a exec.log
