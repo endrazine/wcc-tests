@@ -1,5 +1,5 @@
 all:
-	gcc loader.c -o loader
+	gcc loader.c -o loader -ldl
 	debootstrap jammy ./chroot-test
 
 test:
