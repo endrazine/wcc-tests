@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+for distrib in noble jammy focal bionic xenial trusty
+do
+	find ./chroot-${distrib}/bin ./chroot-${distrib}/sbin ./chroot-${distrib}/usr/bin ./chroot-${distrib}/usr/sbin -type f -exec file '{}' \;|grep -w ELF |grep dynamically|grep executable|awk -F ":" '{print $1}'|while read testbin
+	do
+		echo "-- ${testbin}"
+		cp "${testbin}" ./testbin
+		wld --libify --no-init ./testbin
+		./loader ./testbin 2>&1
+	done |tee -a ${distrib}.log
+done
