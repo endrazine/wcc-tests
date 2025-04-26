@@ -1,6 +1,6 @@
 all:
 	gcc loader.c -o loader -ldl
-	debootstrap $(shell cat /etc/lsb-release|grep CODENAME|awk -F "=" '{print $$2}') ./chroot-test
+	debootstrap $(shell cat /etc/lsb-release|grep CODENAME|awk -F "=" '{print $$2}') ./chroot-test || :
 
 test:
 	rm -f exec.log
