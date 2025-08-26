@@ -4,15 +4,15 @@ This repository contains helper scripts to test the correctness of the Witchcraf
 
 # Testing WCC
 
-To build, copy the Dockerfile in this repository under /tmp/woot24/Dockerfile. Then type:
+To build, copy the Dockerfile in this repository under /tmp/test/Dockerfile. Then type:
 
-	docker build . -t witchcraft:latest
+	docker build . -t witchcraft:latest -f Dockerfile-24.04
 
 This should produce a new image named witchcraft:latest.
 
 You can then run the tests as such:
 
-	jonathan@blackbox:/tmp$ docker run -it witchcraft:latest
+	jonathan@blackbox:/tmp/test$ docker run -it witchcraft:latest
 
 	root@60b09a74e54d:~/wcc-tests# ls
 
@@ -20,9 +20,12 @@ You can then run the tests as such:
 
 	root@60b09a74e54d:~/wcc-tests# time make test
 
-=> This should libify and load the 435 binaries in the PATH under 2 seconds.
+=> This should libify and load the 400+ binaries in the PATH under 2 seconds.
 
 Then, to test the CVE scripts accross the 3 versions of openssl (3.0.6, 3.0.7 and 3.0.8), simply type: 
 
-        root@60b09a74e54d:~/wcc-tests# make cves
+        root@60b09a74e54d:~/wcc-tests# make cve-2002-3602
+or:
+        root@60b09a74e54d:~/wcc-tests# make cve-2022-3786
+
 
