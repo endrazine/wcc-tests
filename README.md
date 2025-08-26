@@ -6,7 +6,7 @@ This repository contains helper scripts to test the correctness of the Witchcraf
 
 To build, copy the Dockerfile in this repository under /tmp/test/Dockerfile. Then type:
 
-	docker build . -t witchcraft:latest -f Dockerfile-24.04
+	docker build . -t wcc:24.04 -f Dockerfile-24.04
 
 This should produce a new image named witchcraft:latest.
 
