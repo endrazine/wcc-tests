@@ -16,7 +16,7 @@ You can then run the tests as such:
 
 	root@60b09a74e54d:~/wcc-tests# ls
 
-	Makefile README.md chroot-test loader loader.c scripts test_all
+	Makefile README.md chroot-test loader loader.c scripts test_all complex.sh
 
 	root@60b09a74e54d:~/wcc-tests# time make test
 
