@@ -4,11 +4,23 @@ WORKDIR /root
 
 RUN apt-get update
 
-RUN apt-get install -y clang libbfd-dev uthash-dev libelf-dev libcapstone-dev  libreadline-dev libiberty-dev libgsl-dev build-essential git debootstrap file cargo
+RUN apt-get install -y clang libbfd-dev uthash-dev libelf-dev libcapstone-dev  libreadline-dev libiberty-dev libgsl-dev build-essential git debootstrap file cargo openssh-server apache2 nginx gcc
 RUN apt-get install -y libbpf1 libtirpc-dev
 
+# Download and add Google's signing key
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+
+# Add Google's repository
+RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+
+# Update package list
+RUN apt update
+
+# Install Chrome
+RUN apt install -y google-chrome-stable
+
 # Build wcc & install it
-RUN git clone https://github.com/endrazine/wcc.git && cd wcc && git checkout d2e5cff27140bfad5123ee719162920113cbb2d6 && git submodule init && git submodule update && make && make install
+RUN git clone https://github.com/endrazine/wcc.git && cd wcc && git checkout v0.0.11 && git submodule init && git submodule update && make && make install
 
 # Build openssl 
 RUN git clone https://github.com/openssl/openssl.git || echo ok

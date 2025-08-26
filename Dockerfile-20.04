@@ -4,7 +4,19 @@ WORKDIR /root
 
 RUN apt-get update
 
-RUN DEBIAN_FRONTEND="noninteractive" TZ="Europe/London"RUN apt-get install -y clang libbfd-dev uthash-dev libelf-dev libcapstone-dev  libreadline-dev libiberty-dev libgsl-dev build-essential git debootstrap file cargo libdns-export1109 libdbus-1-dev dbus libdbus-1-3
+RUN DEBIAN_FRONTEND="noninteractive" TZ="Europe/London"RUN apt-get install -y clang libbfd-dev uthash-dev libelf-dev libcapstone-dev  libreadline-dev libiberty-dev libgsl-dev build-essential git debootstrap file cargo libdns-export1109 libdbus-1-dev dbus libdbus-1-3 openssh-server apache2 nginx gcc
+
+# Download and add Google's signing key
+RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+
+# Add Google's repository
+RUN sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+
+# Update package list
+RUN apt update
+
+# Install Chrome
+RUN apt install -y google-chrome-stable
 
 # Build wcc & install it
 RUN git clone https://github.com/endrazine/wcc.git && cd wcc && git checkout eec9f5c130b252ec1e0031014d5acf357e2b78a2 && git submodule init && git submodule update && make && make install
