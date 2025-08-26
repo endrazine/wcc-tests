@@ -17,11 +17,11 @@ cve-2022-3786:
 	wsh ../openssl/build-3.0.7/libcrypto.a /lib/x86_64-linux-gnu/libpthread.so.0 < ./scripts/CVE-2022-3786.wsh || echo ""
 	wsh ../openssl/build-3.0.6/libcrypto.a /lib/x86_64-linux-gnu/libpthread.so.0 < ./scripts/CVE-2022-3786.wsh || echo ""
 
-complex:
+complex-test:
 	./complex.sh
 
-chrome:
+chrome-test:
 	cp /opt/google/chrome/chrome .
-	time wld --libify --no-init ./chrome
+	wld --libify --no-init ./chrome
 	./loader ./chrome
 
