@@ -2,7 +2,7 @@ all:
 	gcc loader.c -o loader -ldl
 	debootstrap $(shell cat /etc/lsb-release|grep CODENAME|awk -F "=" '{print $$2}') ./chroot-test || :
 
-test:
+ubuntu-test:
 	rm -f exec.log
 	./test_all
 	grep Load ./exec.log |wc -l
