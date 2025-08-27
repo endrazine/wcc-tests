@@ -16,7 +16,7 @@ You can then run the tests as such:
 
 	root@60b09a74e54d:~/wcc-tests# ls
 
-	Dockerfile-20.04  Dockerfile-22.04  Dockerfile-24.04  Makefile  README.md  chrome  chroot-test  complex.sh  loader  loader.c  regressions  scripts  test  test_all
+	Dockerfile-20.04  Dockerfile-22.04  Dockerfile-24.04  Makefile  README.md  chroot-test  complex.sh  loader  loader.c  regressions  scripts  test  test_all
 
 	root@60b09a74e54d:~/wcc-tests# time make test
 
