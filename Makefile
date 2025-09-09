@@ -7,28 +7,26 @@ ubuntu-test:
 	./test_all
 	grep Load ./exec.log |wc -l
 
-cve-2002-3602:
+cve-2022-3602:
 	wsh ../openssl/build-3.0.8/libcrypto.a < ./scripts/CVE-2022-3602.wsh || echo ""
 	wsh ../openssl/build-3.0.7/libcrypto.a < ./scripts/CVE-2022-3602.wsh || echo ""
 	wsh ../openssl/build-3.0.6/libcrypto.a < ./scripts/CVE-2022-3602.wsh || echo ""
-	
+
 cve-2022-3786:
 	wsh ../openssl/build-3.0.8/libcrypto.a < ./scripts/CVE-2022-3786.wsh || echo ""
 	wsh ../openssl/build-3.0.7/libcrypto.a < ./scripts/CVE-2022-3786.wsh || echo ""
 	wsh ../openssl/build-3.0.6/libcrypto.a < ./scripts/CVE-2022-3786.wsh || echo ""
 
-cve-2002-3602-ubuntu-20.04:
+cve-2022-3602-ubuntu-20.04:
 	LD_PRELOAD=/lib/x86_64-linux-gnu/libpthread.so.0 wsh ../openssl/build-3.0.8/libcrypto.a < ./scripts/CVE-2022-3602.wsh || echo ""
 	LD_PRELOAD=/lib/x86_64-linux-gnu/libpthread.so.0 wsh ../openssl/build-3.0.7/libcrypto.a < ./scripts/CVE-2022-3602.wsh || echo ""
 	LD_PRELOAD=/lib/x86_64-linux-gnu/libpthread.so.0 wsh ../openssl/build-3.0.6/libcrypto.a < ./scripts/CVE-2022-3602.wsh || echo ""
-	
+
 cve-2022-3786-ubuntu-20.04:
 	LD_PRELOAD=/lib/x86_64-linux-gnu/libpthread.so.0 wsh ../openssl/build-3.0.8/libcrypto.a < ./scripts/CVE-2022-3786.wsh || echo ""
 	LD_PRELOAD=/lib/x86_64-linux-gnu/libpthread.so.0 wsh ../openssl/build-3.0.7/libcrypto.a < ./scripts/CVE-2022-3786.wsh || echo ""
 	LD_PRELOAD=/lib/x86_64-linux-gnu/libpthread.so.0 wsh ../openssl/build-3.0.6/libcrypto.a < ./scripts/CVE-2022-3786.wsh || echo ""
 
-	
- 
 complex-test:
 	./complex.sh
 
@@ -36,4 +34,3 @@ chrome-test:
 	cp /opt/google/chrome/chrome .
 	wld --libify --no-init ./chrome
 	./loader ./chrome
-

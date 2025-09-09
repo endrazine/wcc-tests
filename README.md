@@ -44,3 +44,20 @@ Start by building the wcc:20.04 image with:
 
 Then proceed with the instructions above.
 
+
+# Testing WCC on Fedora 41
+
+Start by building the wcc:fedora image with:
+
+	docker build . -t wcc:fedora -f Dockerfile-fedora
+
+Then proceed with the instructions above.
+
+
+# Testing WCC on Alpine 3.21 (experimental)
+
+Start by building the wcc:alpine image with:
+
+	docker build . -t wcc:alpine -f Dockerfile-alpine
+
+Then proceed with the instructions above.

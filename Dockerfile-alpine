@@ -1,0 +1,94 @@
+FROM alpine:3.21
+
+WORKDIR /root
+
+# Install base development tools and dependencies
+RUN apk update && apk add --no-cache \
+    clang \
+    binutils-dev \
+    uthash-dev \
+    elfutils-dev \
+    capstone-dev \
+    readline-dev \
+    gsl-dev \
+    build-base \
+    git \
+    file \
+    cargo \
+    openssh \
+    apache2 \
+    nginx \
+    gcc \
+    g++ \
+    make \
+    cmake \
+    linux-headers \
+    musl-dev \
+    libbpf-dev \
+    wget \
+    curl
+
+# Additional libraries for WCC
+RUN apk add --no-cache \
+    glib-dev \
+    dbus-dev \
+    device-mapper \
+    kmod \
+    newt \
+    popt \
+    sudo \
+    openrc \
+    iptables
+
+
+# Add missing dependencies
+RUN apk add libunwind-dev libunwind
+RUN apk add --no-cache perl
+RUN apk add --no-cache bash
+
+# Install Chromium (Alpine alternative to Google Chrome)
+RUN apk add --no-cache chromium
+
+# Build wcc & install it
+RUN git clone https://github.com/endrazine/wcc.git && \
+    cd wcc && \
+    git submodule init && \
+    git submodule update && \
+    make && \
+    make install
+
+# Build openssl versions
+RUN git clone https://github.com/openssl/openssl.git
+
+RUN cd openssl && \
+    git checkout openssl-3.0.6 && \
+    mkdir -p build-3.0.6 && \
+    cd build-3.0.6 && \
+    ../Configure && \
+    make
+
+RUN cd openssl && \
+    git checkout openssl-3.0.7 && \
+    mkdir -p build-3.0.7 && \
+    cd build-3.0.7 && \
+    ../Configure && \
+    make
+
+RUN cd openssl && \
+    git checkout openssl-3.0.8 && \
+    mkdir -p build-3.0.8 && \
+    cd build-3.0.8 && \
+    ../Configure && \
+    make
+
+# Prepare wcc tests
+RUN git clone https://github.com/endrazine/wcc-tests.git && \
+    cd wcc-tests && \
+    make
+
+RUN cp /usr/sbin/httpd /usr/sbin/apache2
+
+RUN mkdir -p /opt/google/chrome/
+RUN cp /usr/lib/chromium/chromium /opt/google/chrome/chrome
+
+WORKDIR /root/wcc-tests
