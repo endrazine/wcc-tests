@@ -7,6 +7,26 @@ ubuntu-test:
 	./test_all
 	grep Load ./exec.log |wc -l
 
+alpine-test:
+	rm -f exec.log
+	./test_alpine
+	grep Load ./exec.log |wc -l
+
+fedora-39-test:
+        rm -f exec.log
+        ./test_fedora-39
+        grep Load ./exec.log |wc -l
+
+fedora-40-test:
+        rm -f exec.log
+        ./test_fedora-40
+        grep Load ./exec.log |wc -l
+
+fedora-41-test:
+        rm -f exec.log
+        ./test_fedora-41
+        grep Load ./exec.log |wc -l
+
 cve-2022-3602:
 	wsh ../openssl/build-3.0.8/libcrypto.a < ./scripts/CVE-2022-3602.wsh || echo ""
 	wsh ../openssl/build-3.0.7/libcrypto.a < ./scripts/CVE-2022-3602.wsh || echo ""

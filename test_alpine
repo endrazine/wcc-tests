@@ -1,0 +1,9 @@
+#!/bin/bash
+
+find `echo $PATH|tr ":" " "` -type f -exec file '{}' \;|grep -w ELF |grep dynamically|grep executable|awk -F ":" '{print $1}'|while read testbin
+do
+	echo "-- ${testbin}"
+	cp "${testbin}" ./testbin
+	wld --libify --no-init ./testbin
+	LD_PRELOAD=/usr/lib/libstdc++.so.6:/usr/lib/librustc_driver-a667ce3916f6554b.so ./loader ./testbin 2>&1
+done |tee -a exec.log

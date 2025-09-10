@@ -25,7 +25,8 @@ RUN dnf install -y \
     httpd \
     nginx \
     wget \
-    curl
+    curl \
+    nano
 
 # Install additional libraries
 RUN dnf install -y \

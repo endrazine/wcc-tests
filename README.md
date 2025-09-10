@@ -6,13 +6,13 @@ This repository contains helper scripts to test the correctness of the Witchcraf
 
 To build, copy the Dockerfile in this repository under /tmp/test/Dockerfile. Then type:
 
-	docker build . -t wcc:24.04 -f Dockerfile-24.04
+	docker build . -t wcc:ubuntu-24.04 -f Dockerfile-24.04
 
-This should produce a new image named wcc:24.04.
+This should produce a new image named wcc:ubuntu-24.04.
 
 You can then run the tests as such:
 
-	jonathan@blackbox:/tmp/test$ docker run -it wcc:24.04
+	jonathan@blackbox:/tmp/test$ docker run -it wcc:ubuntu-24.04
 
 	root@60b09a74e54d:~/wcc-tests# ls
 
@@ -24,32 +24,51 @@ You can then run the tests as such:
 
 Then, to test the CVE scripts accross the 3 versions of openssl (3.0.6, 3.0.7 and 3.0.8), simply type: 
 
-        root@60b09a74e54d:~/wcc-tests# make cve-2002-3602
+        root@60b09a74e54d:~/wcc-tests# make cve-2022-3602
 or:
         root@60b09a74e54d:~/wcc-tests# make cve-2022-3786
 
+
 # Testing WCC on Ubuntu 22.04
 
-Start by building the wcc:22.04 image with:
+Start by building the wcc:ubuntu-22.04 image with:
 
-	docker build . -t wcc:22.04 -f Dockerfile-22.04
+	docker build . -t wcc:ubuntu-22.04 -f Dockerfile-22.04
 
 Then proceed with the instructions above.
 
 # Testing WCC on Ubuntu 20.04
 
-Start by building the wcc:20.04 image with:
+Start by building the wcc:ubuntu-20.04 image with:
 
-	docker build . -t wcc:20.04 -f Dockerfile-20.04
+	docker build . -t wcc:ubuntu-20.04 -f Dockerfile-20.04
 
 Then proceed with the instructions above.
 
 
 # Testing WCC on Fedora 41
 
-Start by building the wcc:fedora image with:
+Start by building the wcc:fedora-41 image with:
 
-	docker build . -t wcc:fedora -f Dockerfile-fedora
+	docker build . -t wcc:fedora-41 -f Dockerfile-fedora-41
+
+Then proceed with the instructions above.
+
+
+# Testing WCC on Fedora 40
+
+Start by building the wcc:fedora-40 image with:
+
+	docker build . -t wcc:fedora-40 -f Dockerfile-fedora-40
+
+Then proceed with the instructions above.
+
+
+# Testing WCC on Fedora 39
+
+Start by building the wcc:fedora-39 image with:
+
+	docker build . -t wcc:fedora-39 -f Dockerfile-fedora-39
 
 Then proceed with the instructions above.
 
@@ -58,6 +77,6 @@ Then proceed with the instructions above.
 
 Start by building the wcc:alpine image with:
 
-	docker build . -t wcc:alpine -f Dockerfile-alpine
+	docker build . -t wcc:alpine-3.19 -f Dockerfile-alpine-3.19
 
 Then proceed with the instructions above.
