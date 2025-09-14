@@ -13,19 +13,19 @@ alpine-test:
 	grep Load ./exec.log |wc -l
 
 fedora-39-test:
-        rm -f exec.log
-        ./test_fedora-39
-        grep Load ./exec.log |wc -l
+	rm -f exec.log
+	./test_fedora-39
+	grep Load ./exec.log |wc -l
 
 fedora-40-test:
-        rm -f exec.log
-        ./test_fedora-40
-        grep Load ./exec.log |wc -l
+	rm -f exec.log
+	./test_fedora-40
+	grep Load ./exec.log |wc -l
 
 fedora-41-test:
-        rm -f exec.log
-        ./test_fedora-41
-        grep Load ./exec.log |wc -l
+	rm -f exec.log
+	./test_fedora-41
+	grep Load ./exec.log |wc -l
 
 cve-2022-3602:
 	wsh ../openssl/build-3.0.8/libcrypto.a < ./scripts/CVE-2022-3602.wsh || echo ""
