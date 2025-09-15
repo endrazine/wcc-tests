@@ -1,0 +1,110 @@
+FROM fedora:42
+WORKDIR /root
+
+# Update package manager and install development tools
+RUN dnf update -y
+
+# Install core development packages and WCC dependencies
+RUN dnf install -y \
+    clang \
+    binutils-devel \
+    uthash-devel \
+    elfutils-devel \
+    capstone-devel \
+    readline-devel \
+    gsl-devel \
+    gcc \
+    gcc-c++ \
+    make \
+    cmake \
+    git \
+    file \
+    cargo \
+    rust \
+    openssh-server \
+    httpd \
+    nginx \
+    wget \
+    curl \
+    nano
+
+# Install additional libraries
+RUN dnf install -y \
+    libbpf-devel \
+    libtirpc-devel \
+    dbus-devel \
+    device-mapper-devel \
+    glib2-devel \
+    kmod-devel \
+    newt-devel \
+    popt-devel \
+    sudo \
+    systemd-devel \
+    iptables-devel \
+    json-c-devel
+
+# Add Google Chrome repository and install
+RUN dnf install -y dnf-plugins-core
+
+# Import Google's signing key
+RUN rpm --import https://dl.google.com/linux/linux_signing_key.pub
+
+# Create Google Chrome repository file manually
+RUN echo -e '[google-chrome]\n\
+name=google-chrome\n\
+baseurl=https://dl.google.com/linux/chrome/rpm/stable/x86_64\n\
+enabled=1\n\
+gpgcheck=1\n\
+gpgkey=https://dl.google.com/linux/linux_signing_key.pub' > /etc/yum.repos.d/google-chrome.repo
+
+# Install Chrome
+RUN dnf install -y google-chrome-stable
+
+# Add static glibc libraries
+RUN dnf install -y glibc-static libstdc++-static
+
+# Build wcc & install it
+RUN git clone https://github.com/endrazine/wcc.git && \
+    cd wcc && \
+    git checkout 3dfd28cb53b4766032e1113cf508bf2f5dce87d5 && \
+    git submodule init && \
+    git submodule update && \
+    make && \
+    make install
+
+# Install complete Perl
+RUN dnf install -y perl-core
+
+# Build openssl versions
+RUN git clone https://github.com/openssl/openssl.git || echo ok
+
+RUN cd openssl && \
+    git checkout openssl-3.0.6 && \
+    mkdir -p build-3.0.6 && \
+    cd build-3.0.6 && \
+    ../Configure && \
+    make
+
+RUN cd openssl && \
+    git checkout openssl-3.0.7 && \
+    mkdir -p build-3.0.7 && \
+    cd build-3.0.7 && \
+    ../Configure && \
+    make
+
+RUN cd openssl && \
+    git checkout openssl-3.0.8 && \
+    mkdir -p build-3.0.8 && \
+    cd build-3.0.8 && \
+    ../Configure && \
+    make
+
+# Prepare wcc tests
+RUN git clone https://github.com/endrazine/wcc-tests.git && \
+    cd wcc-tests && \
+    make
+
+# Create symlink for compatibility with test scripts
+RUN ln -sf /usr/sbin/httpd /usr/sbin/apache2
+
+WORKDIR /root/wcc-tests
